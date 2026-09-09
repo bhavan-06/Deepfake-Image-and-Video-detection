@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+transformers
+torch
+torchvision
+Pillow
+opencv-python
+mediapipe==0.10.13
+python-multipart

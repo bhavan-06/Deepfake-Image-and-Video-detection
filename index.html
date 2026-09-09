@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deepfake Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <h1>Deepfake<br><span>Image and Video Detector</span></h1>
+    <p class="subtitle">// Upload an image or video to check if it's real</p>
+  </header>
+
+  <!-- MAIN CARD -->
+  <div class="card">
+    <div class="card-body">
+
+      <!-- TABS -->
+      <div class="mode-tabs">
+        <button class="tab-btn active" id="tab-image" onclick="switchMode('image')">📷 Image</button>
+        <button class="tab-btn"        id="tab-video" onclick="switchMode('video')">🎬 Video</button>
+      </div>
+
+      <!-- UPLOAD ZONE -->
+      <div class="upload-zone" id="drop-zone">
+        <input type="file" id="file-input" accept="image/*" />
+        <div class="upload-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <p class="upload-label">Drop your file here or click to browse</p>
+        <p class="upload-hint" id="upload-hint">JPG · PNG · JPEG accepted</p>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="preview-wrap" id="preview-wrap">
+        <img   id="preview-img" class="preview-thumb" src="" alt="preview" style="display:none"/>
+        <video id="preview-vid" class="preview-video" controls style="display:none"></video>
+        <div class="preview-meta">
+          <p class="preview-name" id="preview-name"></p>
+          <p class="preview-size" id="preview-size"></p>
+        </div>
+      </div>
+
+      <!-- ANALYSE BUTTON -->
+      <button class="analyze-btn" id="analyze-btn" onclick="runAnalysis()">
+        Analyse
+      </button>
+
+      <!-- LOADING + PROGRESS -->
+      <div class="loading" id="loading">
+        <div class="loading-header">
+          <div class="spinner-ring"></div>
+          <span class="loading-text" id="loading-text">Processing…</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-labels">
+          <span id="progress-step">Starting…</span>
+          <span id="progress-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- ERROR -->
+      <div class="error-msg" id="error-msg"></div>
+
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card" id="result-card">
+    <div class="result-header" id="result-header">
+      <span class="verdict-badge" id="verdict-badge"></span>
+      <span class="verdict-label" id="verdict-label"></span>
+    </div>
+    <div class="result-body">
+      <div class="stat-block">
+        <p class="stat-label">Fake Score</p>
+        <p class="stat-value fake" id="stat-fake">—</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-label">Real Score</p>
+        <p class="stat-value real" id="stat-real">—</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-label">Confidence</p>
+        <p class="stat-value neutral" id="stat-conf">—</p>
+      </div>
+    </div>
+    <div class="gauge-wrap">
+      <div class="gauge-label">
+        <span>Real ←</span>
+        <span>→ Fake</span>
+      </div>
+      <div class="gauge-track">
+        <div class="gauge-fill" id="gauge-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO FRAMES -->
+  <div class="frames-section" id="frames-section">
+    <p class="frames-title">// Analysed face frames — sampled across video</p>
+    <div class="frames-grid" id="frames-grid"></div>
+  </div>
+
+  <footer>
+    <span>Deepfake Detector</span>
+    <span>SigLIP · MediaPipe · PyTorch</span>
+  </footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
